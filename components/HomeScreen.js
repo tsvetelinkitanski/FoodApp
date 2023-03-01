@@ -108,6 +108,37 @@ export default HomeScreen = () => {
           />
         </View>
       </View>
+      {/* Popular wrapper */}
+      <View style={styles.popularWrapper}>
+        <Text style={styles.popularTitle}>Popular</Text>
+        {popularData.map((item) => (
+          <View
+            style={[
+              styles.popularCardWrapper,
+              {
+                marginTop: item.id == 1 ? 10 : 20,
+              },
+            ]}
+          >
+            <View>
+              <View>
+                <View style={styles.popularTopWrapper}>
+                  <MaterialCommunityIcons
+                    name="crown"
+                    size={12}
+                    color={colors.primary}
+                  />
+                  <Text style={styles.popularTopText}>top of the week</Text>
+                </View>
+                <View style={styles.popularTitlesWrapper}>
+                  <Text>{item.title}</Text>
+                  <Text>Weight: {item.weight}</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        ))}
+      </View>
     </View>
   );
 };
@@ -204,5 +235,28 @@ const styles = StyleSheet.create({
   },
   categorySelectIcon: {
     alignSelf: "center",
+  },
+  popularWrapper: {
+    paddingHorizontal: 20,
+  },
+  popularTitle: {
+    fontFamily: "Montserrat-Bold",
+    fontSize: 16,
+  },
+  popularCardWrapper: {
+    backgroundColor: colors.background,
+    borderRadius: 25,
+    paddingTop: 20,
+    paddingLeft: 20,
+    flexDirection: "row",
+  },
+  popularTopWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  popularTopText: {
+    marginLeft: 10,
+    fontFamily: "Montserrat-SemiBold",
+    fontSize: 14,
   },
 });
