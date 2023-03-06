@@ -6,6 +6,7 @@ import {
   Image,
   StyleSheet,
   FlatList,
+  ScrollView,
 } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -72,73 +73,96 @@ export default HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <SafeAreaView>
-        <View style={styles.headerWrapper}>
-          <Image
-            source={require("../assets/images/profile.png")}
-            style={styles.profileImage}
-          />
-          <Feather name="menu" size={24} color={colors.textDark} />
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header */}
+        <SafeAreaView>
+          <View style={styles.headerWrapper}>
+            <Image
+              source={require("../assets/images/profile.png")}
+              style={styles.profileImage}
+            />
+            <Feather name="menu" size={24} color={colors.textDark} />
+          </View>
+        </SafeAreaView>
+        {/* Titles */}
+        <View style={styles.titlesWrapper}>
+          <Text style={styles.titlesSubtitle}>Food</Text>
+          <Text style={styles.titlesTitle}>Delivery</Text>
         </View>
-      </SafeAreaView>
-      {/* Titles */}
-      <View style={styles.titlesWrapper}>
-        <Text style={styles.titlesSubtitle}>Food</Text>
-        <Text style={styles.titlesTitle}>Delivery</Text>
-      </View>
 
-      {/* Search */}
-      <View style={styles.searchWrapper}>
-        <Feather name="search" size={16} color={colors.textBlack} />
-        <View style={styles.search}>
-          <Text style={styles.searchText}>Search</Text>
+        {/* Search */}
+        <View style={styles.searchWrapper}>
+          <Feather name="search" size={16} color={colors.textBlack} />
+          <View style={styles.search}>
+            <Text style={styles.searchText}>Search</Text>
+          </View>
         </View>
-      </View>
-      {/* Categories */}
+        {/* Categories */}
 
-      <View style={styles.categoriesWrapper}>
-        <Text style={styles.categoriesTitle}>Categories</Text>
-        <View style={styles.categoriesListWrapper}>
-          <FlatList
-            data={categoriesData}
-            renderItem={renderCategoryItem}
-            keyExtractor={(item) => item.id}
-            horizontal={true}
-          />
+        <View style={styles.categoriesWrapper}>
+          <Text style={styles.categoriesTitle}>Categories</Text>
+          <View style={styles.categoriesListWrapper}>
+            <FlatList
+              data={categoriesData}
+              renderItem={renderCategoryItem}
+              keyExtractor={(item) => item.id}
+              horizontal={true}
+            />
+          </View>
         </View>
-      </View>
-      {/* Popular wrapper */}
-      <View style={styles.popularWrapper}>
-        <Text style={styles.popularTitle}>Popular</Text>
-        {popularData.map((item) => (
-          <View
-            style={[
-              styles.popularCardWrapper,
-              {
-                marginTop: item.id == 1 ? 10 : 20,
-              },
-            ]}
-          >
-            <View>
+        {/* Popular wrapper */}
+        <View style={styles.popularWrapper}>
+          <Text style={styles.popularTitle}>Popular</Text>
+          {popularData.map((item) => (
+            <View
+              style={[
+                styles.popularCardWrapper,
+                {
+                  marginTop: item.id == 1 ? 10 : 20,
+                },
+              ]}
+            >
               <View>
-                <View style={styles.popularTopWrapper}>
-                  <MaterialCommunityIcons
-                    name="crown"
-                    size={12}
-                    color={colors.primary}
-                  />
-                  <Text style={styles.popularTopText}>top of the week</Text>
+                <View>
+                  <View style={styles.popularTopWrapper}>
+                    <MaterialCommunityIcons
+                      name="crown"
+                      size={12}
+                      color={colors.primary}
+                    />
+                    <Text style={styles.popularTopText}>top of the week</Text>
+                  </View>
+                  <View style={styles.popularTitlesWrapper}>
+                    <Text style={styles.popularTitlesTitle}>{item.title}</Text>
+                    <Text style={styles.popularTitlesWeight}>
+                      Weight: {item.weight}
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.popularTitlesWrapper}>
-                  <Text>{item.title}</Text>
-                  <Text>Weight: {item.weight}</Text>
+                <View style={styles.popularCardBottom}>
+                  <View style={styles.addPizzaButton}>
+                    <Feather name="plus" size={10} color={colors.textBlack} />
+                  </View>
+                  <View style={styles.ratingWrapper}>
+                    <MaterialCommunityIcons
+                      name="star"
+                      size={10}
+                      color={colors.textBlack}
+                    />
+                    <Text style={styles.rating}>{item.rating}</Text>
+                  </View>
                 </View>
               </View>
+              <View style={styles.populaCardRight}>
+                <Image source={item.image} style={styles.popularCardImage} />
+              </View>
             </View>
-          </View>
-        ))}
-      </View>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -210,6 +234,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 105,
     height: 177,
+    shadowColor: colors.textBlack,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 2,
   },
   categoryItemImage: {
     width: 60,
@@ -249,6 +281,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 20,
     flexDirection: "row",
+    overflow: "hidden",
   },
   popularTopWrapper: {
     flexDirection: "row",
@@ -258,5 +291,51 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontFamily: "Montserrat-SemiBold",
     fontSize: 14,
+  },
+  popularTitlesWrapper: {
+    marginTop: 20,
+  },
+  popularTitlesTitle: {
+    fontFamily: "Montserrat-SemiBold",
+    fontSize: 14,
+    color: colors.textBlack,
+  },
+  popularTitlesWeight: {
+    fontFamily: "Montserrat-Medium",
+    fontSize: 12,
+    color: colors.textGray,
+    marginTop: 5,
+  },
+  popularCardBottom: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+    marginLeft: -20,
+  },
+  addPizzaButton: {
+    backgroundColor: colors.primary,
+    paddingHorizontal: 40,
+    paddingVertical: 20,
+    borderTopRightRadius: 25,
+    borderBottomLeftRadius: 25,
+  },
+  ratingWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 20,
+  },
+  rating: {
+    fontFamily: "Montserrat-SemiBold",
+    fontSize: 12,
+    color: colors.textBlack,
+    marginLeft: 5,
+  },
+  populaCardRight: {
+    marginLeft: 10,
+  },
+  popularCardImage: {
+    weight: 210,
+    height: 125,
+    resizeMode: "contain",
   },
 });
