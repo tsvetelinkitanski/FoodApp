@@ -118,6 +118,7 @@ export default HomeScreen = () => {
           <Text style={styles.popularTitle}>Popular</Text>
           {popularData.map((item) => (
             <View
+              key={item.id}
               style={[
                 styles.popularCardWrapper,
                 {
