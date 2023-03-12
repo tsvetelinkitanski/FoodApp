@@ -1,10 +1,23 @@
 import * as React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 
-export default Details = () => {
+export default Details = ({ route }) => {
+  const { item } = route.params;
+  console.log(item);
   return (
-    <View>
-      <Text> Details page</Text>
+    <View style={styles.container}>
+      {/* Header */}
+      <SafeAreaView>
+        <View>
+          <Text>Some text here</Text>
+        </View>
+      </SafeAreaView>
     </View>
   );
 };
+
+const styles = new StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
