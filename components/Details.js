@@ -1,3 +1,4 @@
+import { useFonts } from "expo-font";
 import * as React from "react";
 import {
   View,
@@ -12,7 +13,6 @@ import colors from "../assets/colors";
 
 export default Details = ({ route, navigation }) => {
   const { item } = route.params;
-  console.log(item);
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -32,6 +32,16 @@ export default Details = ({ route, navigation }) => {
           </View>
         </View>
       </SafeAreaView>
+
+      {/* Titles */}
+      <View style={styles.titlesWrapper}>
+        <Text style={styles.title}>{item.title}</Text>
+      </View>
+
+      {/* Price */}
+      <View style={styles.prriceeWrapper}>
+        <Text style={styles.priceText}>${item.price}</Text>
+      </View>
     </View>
   );
 };
@@ -59,5 +69,24 @@ const styles = new StyleSheet.create({
     padding: 12,
     borderRadius: 10,
     borderColor: colors.primary,
+  },
+  titlesWrapper: {
+    paddingHorizontal: 20,
+    marginTop: 30,
+  },
+  title: {
+    fontFamily: "Montserrat-Bold",
+    fontSize: 32,
+    color: colors.textBlack,
+    width: "50%",
+  },
+  prriceeWrapper: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  priceText: {
+    color: colors.price,
+    fontFamily: "Montserrat-Bold",
+    fontSize: 32,
   },
 });
