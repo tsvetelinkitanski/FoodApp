@@ -1,4 +1,3 @@
-import { useFonts } from "expo-font";
 import * as React from "react";
 import {
   View,
@@ -95,6 +94,13 @@ export default Details = ({ route, navigation }) => {
           />
         </View>
       </View>
+      {/* Button for order */}
+      <TouchableOpacity onPress={() => alert("Your order has been placed")}>
+        <View style={styles.orderWrapped}>
+          <Text style={styles.orderText}> Place an order</Text>
+          <Feather name="chevron-right" size={18} color={colors.textBlack} />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -199,5 +205,20 @@ const styles = new StyleSheet.create({
   },
   ingredientImage: {
     resizeMode: "contain",
+  },
+  orderWrapped: {
+    marginTop: 60,
+    marginHorizontal: 20,
+    backgroundColor: colors.primary,
+    borderRadius: 50,
+    paddingVertical: 25,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  orderText: {
+    fontFamily: "Montserrat-Bold",
+    fontSize: 14,
+    marginRight: 10,
   },
 });
